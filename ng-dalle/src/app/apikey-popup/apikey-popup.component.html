@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Hi {{data.name}}</h1>
+<div mat-dialog-content>
+  <p>What's your API key?</p>
+  <mat-form-field appearance="fill">
+    <mat-label>API Key</mat-label>
+    <input matInput [(ngModel)]="data.key">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data.key" cdkFocusInitial>Ok</button>
+</div>

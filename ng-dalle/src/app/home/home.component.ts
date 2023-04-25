@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { ApikeyPopupComponent } from '../apikey-popup/apikey-popup.component';
 
@@ -8,7 +8,7 @@ import { ApikeyPopupComponent } from '../apikey-popup/apikey-popup.component';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
 
   key: string;
   prompt: string = '';
@@ -22,16 +22,20 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.openDialog();
   }
+  ngAfterViewInit(): void {
+  }
   openDialog(): void {
-    const dialogRef = this.dialog.open(ApikeyPopupComponent, {
-      data: { key: this.key},
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.key = result;
-      console.log(this.key)
-    });
+    setTimeout(() => {
+      const dialogRef = this.dialog.open(ApikeyPopupComponent, {
+        data: { key: this.key},
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        this.key = result;
+        console.log(this.key)
+      });
+    })
   }
   submitForm() {
     const headers = {

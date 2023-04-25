@@ -1,2 +1,0 @@
-# ng-dalle
-Image generation

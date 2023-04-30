@@ -1,0 +1,12 @@
+<div class="title-bar">
+  <h1 mat-dialog-title>Generated Images</h1>
+  <mat-icon class="example-icon" (click)="onNoClick()" class="pointer">close</mat-icon>
+</div>
+
+<mat-grid-list [cols]="2">
+  <mat-grid-tile
+      *ngFor="let response of responses"
+  >
+    <img [src]="response" alt="Generated Image" class="card-img-top">
+  </mat-grid-tile>
+</mat-grid-list>

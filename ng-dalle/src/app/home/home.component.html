@@ -25,10 +25,11 @@
 </mat-form-field>
 <button type="submit" mat-button cdkFocusInitial>Generate Images</button>
 </form>
-<mat-grid-list [cols]="1">
-  <mat-grid-tile
-      *ngFor="let response of responses"
-  >
-    <img [src]="response" alt="Generated Image" class="card-img-top">
-  </mat-grid-tile>
-</mat-grid-list>
+
+<div class="overlay" *ngIf="loading">
+  <div class="center">
+      <mat-progress-spinner color="primary" mode="indeterminate">
+  </mat-progress-spinner> 
+  </div>
+  </div>
+  

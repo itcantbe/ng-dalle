@@ -18,13 +18,16 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon'; 
 import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatProgressSpinnerModule } from '@angular/material';
+import { ResponsePopupComponent } from './response-popup/response-popup.component'
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    ApikeyPopupComponent
+    ApikeyPopupComponent,
+    ResponsePopupComponent
   ],
   imports: [
     BrowserModule,
@@ -40,11 +43,13 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatToolbarModule,
     MatIconModule,
     MatSelectModule,
-    MatGridListModule
+    MatGridListModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   entryComponents:[
-    ApikeyPopupComponent
+    ApikeyPopupComponent,
+    ResponsePopupComponent
   ],
   bootstrap: [AppComponent]
 })

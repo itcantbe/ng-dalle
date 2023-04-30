@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { ApikeyPopupComponent } from '../apikey-popup/apikey-popup.component';
+import { ResponsePopupComponent } from '../response-popup/response-popup.component';
 
 @Component({
   selector: 'app-home',
@@ -17,10 +18,18 @@ export class HomeComponent implements OnInit, AfterViewInit {
   numImages: number = 1;
   responses: string[] = [];
   numberofimage = [1,2,3,4,5,6,7,8,9,10]
+  loading=false;
   constructor(public dialog: MatDialog, private http: HttpClient) { }
 
   ngOnInit() {
-    this.openDialog();
+    var key = localStorage.getItem("key") 
+    if(key ==null){
+      this.openDialog();
+    }
+    else{
+      this.key = localStorage.getItem("key")
+    }
+    
   }
   ngAfterViewInit(): void {
   }
@@ -33,11 +42,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
         this.key = result;
-        console.log(this.key)
+        localStorage.setItem("key", this.key)
       });
     })
   }
   submitForm() {
+    this.loading = true;
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.key
@@ -53,6 +63,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.http.post(apiUrl, data, { headers })
       .subscribe((response: any) => {
         this.responses = response.data.map((d: any) => d.url);
+        setTimeout(() => {
+          const dialogRef = this.dialog.open(ResponsePopupComponent, {
+            data: { responses: this.responses},
+          });
+      
+          dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+          });
+        })
+        this.loading = false;
       });
   }
 }
